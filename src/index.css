@@ -1,0 +1,218 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glassmorphism {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-sm;
+  }
+  
+  .button-hover-effect {
+    @apply transition-all duration-300 ease-out hover:shadow-md active:scale-95;
+  }
+  
+  .card-hover-effect {
+    @apply transition-all duration-300 ease-out hover:shadow-md hover:translate-y-[-2px];
+  }
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://fonts.cdnfonts.com/css/sf-pro-display') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Smooth animation transitions for all elements */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Analysis status indicators */
+.status-indicator {
+  @apply h-3 w-3 rounded-full inline-block mr-2;
+}
+
+.status-indicator.normal {
+  @apply bg-health-normal;
+}
+
+.status-indicator.warning {
+  @apply bg-health-warning;
+}
+
+.status-indicator.alert {
+  @apply bg-health-alert;
+}
+
+.camera-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.camera-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.face-guide {
+  position: absolute;
+  border: 3px dashed #8B5CF6;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background: rgba(139, 92, 246, 0.05);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+.face-guide.large {
+  width: 260px;
+  height: 260px;
+}
+
+.face-guide.active {
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.15);
+  background: rgba(139, 92, 246, 0.07);
+}
+
+.guide-text {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(139, 92, 246, 0.9);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Animated pulse for scanning effect */
+.scanning-line {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.8), transparent);
+  animation: scan 2s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+/* Pulse animation for active scanning */
+@keyframes pulse-gentle {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
